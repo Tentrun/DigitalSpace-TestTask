@@ -4,12 +4,12 @@ public readonly struct UnixConverter
 {
     public long Value { get; }
 
-    public UnixConverter(long posixValue)
+    private UnixConverter(long posixValue)
     {
         Value = posixValue;
     }
-        
-    public static UnixConverter Parse(DateTime date)
+
+    private static UnixConverter Parse(DateTime date)
     {
         return new UnixConverter((long)date.Subtract(DateTime.UnixEpoch).TotalSeconds);
     }
@@ -18,13 +18,13 @@ public readonly struct UnixConverter
     {
         return DateTime.UnixEpoch.AddSeconds(posixValue);
     }
-        
-    public static DateTime ToDateTime(UnixConverter posix)
+
+    private static DateTime ToDateTime(UnixConverter posix)
     {
         return DateTime.UnixEpoch.AddSeconds(posix.Value);
     }
 
-    public static int YearsBetween(DateTime firstDate, UnixConverter secondDate)
+    private static int YearsBetween(DateTime firstDate, UnixConverter secondDate)
     {
         var secondDateTime = ToDateTime(secondDate);
             
